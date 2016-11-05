@@ -27,22 +27,22 @@ app.get("/Locations/:id", function (request, response) {
 });
  
 app.post("/Locations", function (request, response) {
-  var Location = request.body;
+  var Locatie = request.body; //kon geen locations gebruiken want dit is een bestaande functie => hoop dat ik 'location' op de juiste plekken heb aangepast naar 'locatie'
 
-  var errors = validator.fieldsNotEmpty(Location, "Naam", "Stad", "Adres","Capaciteit");
+  var errors = validator.fieldsNotEmpty(Locatie, "Naam", "Stad", "Adres","Capaciteit");
   if (errors){
     response.status(400).send({msg:"Following field(s) are mandatory:"+errors.concat()});
     return;
   }
   
-  var existingLocation = dalLocations.findLocation(Location.Naam);
+  var existingLocation = dalLocations.findLocation(Locatie.Naam);
   if(existingLocation){
     response.status(409).send({msg:"Naam moet uniek zijn, deze bestaat al", link:"../Locations/"+existingLocation.id});
     return;
   }
-  Location.id=Location.Naam;
-  dalLocations.saveLocation(Location);
-  response.status(201).location("../Locations/"+Location.id).send();
+  Locatie.id=Locatie.Naam;
+  dalLocations.saveLocation(Locatie);
+  response.status(201).location("../Locations/"+Locatie.id).send();
 });
 
 //PRODUCTS
@@ -146,5 +146,6 @@ app.post("/Aanwezigheden", function (request, response) {
   dalAanwezigheden.saveAanwezigheid(Aanwezigheid);
   response.status(201).location("../Aanwezigheden/"+Aanwezigheid.id).send();
 });
+
 app.listen(4567);
 console.log("Server started");
