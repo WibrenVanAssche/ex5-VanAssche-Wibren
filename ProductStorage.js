@@ -1,7 +1,18 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+module.exports =  {
+  Products : {},
+  
+  saveProduct : function(Product){
+    this.Products[Product.id]= Product;
+  },
+  listAllProducts : function(){
+    var rtnValue =[];
+    for (var item in this.Products) {
+      rtnValue.push(this.Products[item]);
+    };
+    return rtnValue;
+  },
+  findProducts : function(id){
+    return this.Products[id];
+  }
+};
 

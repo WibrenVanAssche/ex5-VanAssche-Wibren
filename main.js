@@ -6,3 +6,8 @@ var dalAanwezigheden = require("./AanwezighedenStorage.js");
 var dalSales = require("./SalesStorage.js");
 var dalProducts = require("./ProductStorage.js");
 
+var validator = require("./Validate.js");
+
+var app = axpress();
+app.use(parser.json());
+
