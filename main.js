@@ -97,24 +97,54 @@ app.get("/Sales/:id", function (request, response) {
 app.post("/Sales", function (request, response) {
   var Sale = request.body;
 
-  var errors = validator.fieldsNotEmpty(Sale, "Date", "[Productid]", "revenue", "id");
+  var errors = validator.fieldsNotEmpty(Sale, "Date", "[Productid]", "revenue", "Saleid");
   if (errors){
     response.status(400).send({msg:"Following field(s) are mandatory:"+errors.concat()});
     return;
   }
   
-  var existingSale= dalSales.findSale(Sale.id);
+  var existingSale= dalSales.findSale(Sale.saleid);
   if(existingSale){
     response.status(409).send({msg:"id moet uniek zijn, deze bestaat al", link:"../Sales/"+existingSale.id});
     return;
   }
- //onderstaande is denk ik overbodig
- // Sale.id=Sale.id;  
+  Sale.id=Sale.Saleid;  
   dalSales.saveSale(Sale);
   response.status(201).location("../Sales/"+Sale.id).send();
 });
 
 //AANWEZIGHEDEN
+app.get("/Aanwezigheden", function (request, response) {
+  
+  response.send(dalAanwezigheden.listAllAanwezigheden());
+});
 
+app.get("/Aanwezigheden/:id", function (request, response) {
+  var Aanwezigheid = dalAanwezigheden.findAanwezigheid(request.params.id);
+  if(Aanwezigheid) {
+    response.send(Aanwezigheid);
+  }else {
+    response.status(404).send();
+  }
+});
+ 
+app.post("/Aanwezigheden", function (request, response) {
+  var Aanwezigheid = request.body;
+
+  var errors = validator.fieldsNotEmpty(Aanwezigheid, "Date", "unique count", "number  of sales", "ratio");
+  if (errors){
+    response.status(400).send({msg:"Following field(s) are mandatory:"+errors.concat()});
+    return;
+  }
+  
+  var existingAanwezigheid = dalAanwezigheden.findAanwezigheid(Aanwezigheid.Date);
+  if(existingAanwezigheid){
+    response.status(409).send({msg:"De Datum moet uniek zijn, deze bestaat al", link:"../Aanwezigheden/"+existingAanwezigheid.id});
+    return;
+  }
+  Aanwezigheid.id=Aanwezigheid.Date;
+  dalAanwezigheden.saveAanwezigheid(Aanwezigheid);
+  response.status(201).location("../Aanwezigheden/"+Aanwezigheid.id).send();
+});
 app.listen(4567);
 console.log("Server started");
