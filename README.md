@@ -1,4 +1,4 @@
-# ex5-VanAssche-Wibren
+# ex5-VanAssche-Wibren                      ![alt text](http://www.thomasmore.be/sites/www.thomasmore.be/files/media/tm_vignet_web.png "Thomas More")
 
 ###inhoud
 Een API die kan gebruikt worden om het effect van bepaalde acties te monitoren. 
