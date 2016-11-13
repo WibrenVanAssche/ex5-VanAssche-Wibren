@@ -14,6 +14,7 @@ Kan ook gebruikt worden om het gebruik van de refter te analyseren.
 ####Documentatie
 * Uitwerking van resources
 * schema's
+
 ---
 ###strict
 Controle van de code met JSlint gaf als resultaat dat ik beter 'use strict' in mijn funties kon zetten. Jeroen Van Den Bergh raadde dit ook aan.
